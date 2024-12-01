@@ -125,14 +125,6 @@ int main(int argc, char *argv[]) {
         matrix_transposed[i] = (float *)malloc(N*sizeof(float));
     }  
 
-// CREAZIONE FILE.TXT
-
-    FILE *file = fopen("output.txt", w);
-    if(file == NULL) {
-        perror("Errore nell'apertura del file");
-        return 1;
-    }
-
 // SIMMETRIA
 
     double sum_sym_seq=0, sum_sym_imp=0, sum_sym_exp=0;
@@ -170,9 +162,9 @@ int main(int argc, char *argv[]) {
     avg_sym_imp = sum_sym_imp/50;
     avg_sym_exp = sum_sym_exp/50;
 
-    fprintf(file, "AVG CT SYM SEQ: %f seconds\n", avg_sym_seq);
-    fprintf(file, "AVG CT SYM IMP: %f seconds\n", avg_sym_imp);
-    fprintf(file, "AVG CT SYM EXP: %f seconds\n", avg_sym_exp);
+    printf("AVG CT SYM SEQ: %f seconds\n", avg_sym_seq);
+    printf("AVG CT SYM IMP: %f seconds\n", avg_sym_imp);
+    printf("AVG CT SYM EXP: %f seconds\n", avg_sym_exp);
 /*
     printf("MATRICE: \n\n");
     stampa(matrix, N);
@@ -231,21 +223,13 @@ int main(int argc, char *argv[]) {
 
 // STAMPA RISULTATI 
 
-    printf("Wall Clock Time Sequential: %f seconds \n\n", wt2_sequential - wt1_sequential);
+    printf("Attempt number:  %d --------\n", i+1);
 
-    printf("Wall Clock Time Sequential: %f seconds \n\n", wt2_implicit - wt1_implicit);
+    printf("WCT in Sequential: %f seconds\n\n", wt2_sequential-wt1_sequential):
 
-    printf("Wall Clock Time Sequential: %f seconds \n\n", wt2_explicit - wt1_explicit);
+    printf("WCT in Implicit: %f seconds\n\n", wt2_implicit-wt1_implicit);
 
-// SCRITTURA SU FILE
-
-    fprintf(file, "Attempt number:  %d --------\n", i+1);
-
-    fprintf(file, "WCT in Sequential: %f seconds\n\n", wt2_sequential-wt1_sequential):
-
-    fprintf(file, "WCT in Implicit: %f seconds\n\n", wt2_implicit-wt1_implicit);
-
-    fprintf(file, "WCT in Explicit: %f seconds\n\n", wt2_explicit-wt1_explicit);
+    printf("WCT in Explicit: %f seconds\n\n", wt2_explicit-wt1_explicit);
 
     }
 
@@ -253,14 +237,14 @@ int main(int argc, char *argv[]) {
     avg_wct_implicit = sum_wct_implicit/50;
     avg_wct_explicit = sum_wct_explicit/50;
 
-    fprintf(file, "AVERAGE EXPLICIT WCT IS: %f seconds\n", avg_wct_explicit);
-    fprintf(file, "AVERAGE IMPLICIT WCT IS: %f seconds\n", avg_wct_implicit);
-    fprintf(file, "AVERAGE SEQUENTIAL WCT IS: %f seconds\n", avg_wct_sequential);
-    fprintf(file, "AVERAGE BETWEEN EXPLICIT AND SEQUENTIAL: %f\n", avg_wct_explicit/avg_wct_sequential);
-    fprintf(file, "AVERAGE BETWEEN IMPLICIT AND SEQUENTIAL: %f\n", avg_wct_implicit/avg_wct_sequential);
+    printf("AVERAGE EXPLICIT WCT IS: %f seconds\n", avg_wct_explicit);
+    printf("AVERAGE IMPLICIT WCT IS: %f seconds\n", avg_wct_implicit);
+    printf("AVERAGE SEQUENTIAL WCT IS: %f seconds\n", avg_wct_sequential);
+    printf("AVERAGE BETWEEN EXPLICIT AND SEQUENTIAL: %f\n", avg_wct_explicit/avg_wct_sequential);
+    printf("AVERAGE BETWEEN IMPLICIT AND SEQUENTIAL: %f\n", avg_wct_implicit/avg_wct_sequential);
 
-    fprintf(file, "Number of Sequential more efficient than Implicit: %d\n", counter_fail_imp);
-    fprintf(file, "Number of Sequential more efficient than Explicit: %d\n", counter_fail_exp);
+    printf("Number of Sequential more efficient than Implicit: %d\n", counter_fail_imp);
+    printf("Number of Sequential more efficient than Explicit: %d\n", counter_fail_exp);
 
 // DEALLOCAZIONE
 
