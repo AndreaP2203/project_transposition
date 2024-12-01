@@ -111,7 +111,7 @@ int main(int argc, char *argv[]) {
         temp = temp/2,
     }
 
-// INIZIALIZZAZIONE DELLA MATRICE
+// MATRIX INIT
 
     printf("Numero righe N: %d\n\n", N);  
 
@@ -125,7 +125,9 @@ int main(int argc, char *argv[]) {
         matrix_transposed[i] = (float *)malloc(N*sizeof(float));
     }  
 
-// SIMMETRIA
+    matrix_init(matrix, N);
+
+// SIMMETRY
 
     double sum_sym_seq=0, sum_sym_imp=0, sum_sym_exp=0;
     double avg_sym_seq, avg_sym_imp, avg_sym_exp;
@@ -134,7 +136,7 @@ int main(int argc, char *argv[]) {
 
         double wt1_sym_seq = omp_get_wtime();
         if(checkSym(matrix, N) == (N*N)) {
-            printf("Matrice simmetrica !! \n");
+            printf("Matrix symmetric !! \n");
             return 0;
         }
         double wt2_sym_seq = omp_get_wtime();
@@ -142,7 +144,7 @@ int main(int argc, char *argv[]) {
 
         double wt1_sym_imp = omp_get_wtime();
         if(checkSymImp(matrix, N) == (N*N)) {
-            printf("Matrice simmetrica !! \n");
+            printf("Matrix symmetric !! \n");
             return 0;
         }
         double wt2_sym_imp = omp_get_wtime();
@@ -150,7 +152,7 @@ int main(int argc, char *argv[]) {
 
         double wt1_sym_exp = omp_get_wtime();
         if(checkSymOMP(matrix, N) == (N*N)) {
-            printf("Matrice simmetrica !! \n");
+            printf("Matrix symmetric !! \n");
             return 0;
         }
         double wt2_sym_exp = omp_get_wtime();
@@ -221,7 +223,7 @@ int main(int argc, char *argv[]) {
     printf("-------------------\n\n\");
 */
 
-// STAMPA RISULTATI 
+// RESULTS PRINTING 
 
     printf("Attempt number:  %d --------\n", i+1);
 
@@ -246,7 +248,7 @@ int main(int argc, char *argv[]) {
     printf("Number of Sequential more efficient than Implicit: %d\n", counter_fail_imp);
     printf("Number of Sequential more efficient than Explicit: %d\n", counter_fail_exp);
 
-// DEALLOCAZIONE
+// DEALLOCATION
 
     free_matrix(matrix, N);
     free_matrix(matrix_transposed, N);
