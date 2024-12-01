@@ -1,1 +1,44 @@
+#!/bin/bash
+#Job name
+#PBS -N project_transposition
+
+#Output and Error log files
+#PBS -o ./output_transposition.o
+#PBS -e ./output_transposition.e
+
+# Queue name
+#PBS -q short_cpuQ
+
+#Maximum wall time
+#PBS -l walltime=00:10:00
+
+#Resources 
+#PBS -l select=1:ncpus=32:mem=1gb
+
+#Load necessary modules
+module load gcc91
+gcc() {
+  gcc-9.1.0 "$@"
+}
+gcc --version
+
+cd /home/andrea.pezzo-1/project_folder
+
+# Compile command
+gcc -fopenmp -unroll-loops -fprefetch-loop-arrays -O2 project_transposition.c -o project_transposition
+
+for threads in 1 2 4 8 16 32; do
+  export OMP_NUM_THREADS=$threads
+  echo "Running threads=$threads"
+
+  #define the range value of N values
+  for n in $(seq 4 12); do
+    N=$((2**n))
+    echo "Running for N=$N"
+    ./project_transposition $N >> results_${N}_${threads}.txt
+  done
+done
+
+
+
 
